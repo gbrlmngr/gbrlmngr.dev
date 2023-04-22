@@ -31,7 +31,6 @@ const Home: NextPage = () => {
         <h1 className={`text-6xl font-bold ${UnboundedFont.className}`}>
           {t("salutation")}
         </h1>
-        <Link href="mailto:bogus@email.com">Email test</Link>
       </main>
     </>
   );
