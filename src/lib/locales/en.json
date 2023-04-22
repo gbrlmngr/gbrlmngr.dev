@@ -2,7 +2,8 @@
   "pages": {
     "home": {
       "page-title": "gbrlmngr.dev | Home",
-      "salutation": "Hello!"
+      "salutation": "Hello!",
+      "role": "Full-Stack Software Engineer"
     }
   }
 }
