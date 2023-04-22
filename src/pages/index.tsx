@@ -25,7 +25,7 @@ const Home: NextPage = () => {
         <title>{t("page-title")}</title>
       </Head>
       <main
-        className={`flex min-h-screen flex-col items-center p-24 ${InconsolataFont.className}`}
+        className={`flex flex-col items-center p-24 ${InconsolataFont.className}`}
       >
         <h1 className={`text-6xl font-bold ${UnboundedFont.className}`}>
           {t("salutation")}
