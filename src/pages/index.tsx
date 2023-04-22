@@ -2,6 +2,7 @@ import { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { useTranslations } from "next-intl";
 import { Unbounded, Inconsolata } from "next/font/google";
+import Link from "next/link";
 
 interface HomeProps {}
 
@@ -30,6 +31,7 @@ const Home: NextPage = () => {
         <h1 className={`text-6xl font-bold ${UnboundedFont.className}`}>
           {t("salutation")}
         </h1>
+        <Link href="mailto:bogus@email.com">Email test</Link>
       </main>
     </>
   );
