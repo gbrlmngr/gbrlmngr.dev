@@ -2,7 +2,13 @@ import { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { useTranslations } from "next-intl";
 import { Unbounded, Inconsolata } from "next/font/google";
-import { motion } from "framer-motion";
+import { Variants, motion, useReducedMotion } from "framer-motion";
+import {
+  IoLogoLinkedin,
+  IoLogoGithub,
+  IoLogoDiscord,
+  IoMail,
+} from "react-icons/io5";
 
 interface HomeProps {}
 
@@ -19,6 +25,14 @@ const InconsolataFont = Inconsolata({
 
 const Home: NextPage = () => {
   const t = useTranslations("pages.home");
+  const variants: Variants = {
+    hidden: { opacity: 0, y: -15 },
+    visible: { opacity: 1, y: 0 },
+    blurred: { filter: "blur(10px)" },
+    clear: { filter: "blur(0)" },
+  };
+
+  const isMotionReduced = useReducedMotion();
 
   return (
     <>
@@ -30,9 +44,14 @@ const Home: NextPage = () => {
       >
         <motion.div
           className="text-center"
-          initial={{ filter: "blur(10px)", opacity: 0, y: -20 }}
-          animate={{ filter: "blur(0)", opacity: 1, y: 0 }}
-          transition={{ duration: 1.5, delay: 0.5, ease: "easeOut" }}
+          variants={variants}
+          initial={["blurred", "hidden"]}
+          animate={["clear", "visible"]}
+          transition={
+            isMotionReduced
+              ? { duration: 0 }
+              : { duration: 1.5, delay: 0.3, ease: "easeOut" }
+          }
         >
           <h1 className={`text-6xl font-bold ${UnboundedFont.className}`}>
             {t("salutation")}
@@ -41,6 +60,29 @@ const Home: NextPage = () => {
             <span className="text-bold">Gabriel Mangiurea</span>
             <span className="text-neutral-500">&#x2022;</span>
             <span className="text-neutral-500">{t("role")}</span>
+          </p>
+          <p className="mt-2 text-2xl text-center space-x-2">
+            <a
+              href="https://www.linkedin.com/in/gbrlmngr/"
+              className="social-icon"
+            >
+              <IoLogoLinkedin className="inline-block" />
+            </a>
+
+            <a href="https://github.com/gbrlmngr" className="social-icon">
+              <IoLogoGithub className="inline-block" />
+            </a>
+
+            <a
+              href="https://discord.com/users/667477657323307050"
+              className="social-icon"
+            >
+              <IoLogoDiscord className="inline-block" />
+            </a>
+
+            <a href="mailto:hi@gbrlmngr.dev" className="social-icon">
+              <IoMail className="inline-block" />
+            </a>
           </p>
         </motion.div>
       </main>
