@@ -9,6 +9,7 @@ import {
   IoLogoDiscord,
   IoMail,
 } from "react-icons/io5";
+import * as mixpanel from "@/lib/mixpanel/events";
 
 interface HomeProps {}
 
@@ -65,22 +66,46 @@ const Home: NextPage = () => {
             <a
               href="https://www.linkedin.com/in/gbrlmngr/"
               className="social-icon"
+              onClick={() => {
+                mixpanel.track(
+                  mixpanel.Events.SocialIconInteraction,
+                  "LinkedIn"
+                );
+              }}
             >
               <IoLogoLinkedin className="inline-block" />
             </a>
 
-            <a href="https://github.com/gbrlmngr" className="social-icon">
+            <a
+              href="https://github.com/gbrlmngr"
+              className="social-icon"
+              onClick={() => {
+                mixpanel.track(mixpanel.Events.SocialIconInteraction, "Github");
+              }}
+            >
               <IoLogoGithub className="inline-block" />
             </a>
 
             <a
               href="https://discord.com/users/667477657323307050"
               className="social-icon"
+              onClick={() => {
+                mixpanel.track(
+                  mixpanel.Events.SocialIconInteraction,
+                  "Discord"
+                );
+              }}
             >
               <IoLogoDiscord className="inline-block" />
             </a>
 
-            <a href="mailto:hi@gbrlmngr.dev" className="social-icon">
+            <a
+              href="mailto:hi@gbrlmngr.dev"
+              className="social-icon"
+              onClick={() => {
+                mixpanel.track(mixpanel.Events.SocialIconInteraction, "Email");
+              }}
+            >
               <IoMail className="inline-block" />
             </a>
           </p>
