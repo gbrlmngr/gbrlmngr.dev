@@ -40,6 +40,7 @@ const nextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
   swcMinify: true,
+  pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
   i18n: {
     defaultLocale: "en",
     locales: ["en"],
@@ -55,4 +56,13 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+const withMDX = require('@next/mdx')({
+  extension: /\.mdx?$/,
+  options: {
+    remarkPlugins: [],
+    rehypePlugins: [],
+    providerImportSource: '@mdx-js/react'
+  }
+});
+
+module.exports = withMDX(nextConfig);
