@@ -2,6 +2,7 @@ import { FC } from "react";
 import { Unbounded, Inconsolata } from "next/font/google";
 import Link from "next/link";
 import { format, formatDistanceToNow, type Locale } from "date-fns";
+import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
 
 interface BlogLayoutProps {
   locale?: Locale;
@@ -16,7 +17,8 @@ interface BlogLayoutProps {
   title: string;
   author: string;
   date: Date;
-  content: string;
+  tags: string[];
+  mdx: MDXRemoteSerializeResult;
 }
 
 const UnboundedFont = Unbounded({
@@ -31,7 +33,7 @@ const InconsolataFont = Inconsolata({
 });
 
 export const BlogLayout: FC<BlogLayoutProps> = (props) => {
-  const { locale, previous, next, title, author, date, content } = props;
+  const { locale, previous, next, title, author, date, tags, mdx } = props;
 
   return (
     <article
@@ -41,7 +43,7 @@ export const BlogLayout: FC<BlogLayoutProps> = (props) => {
         {previous && (
           <Link
             href={previous.url}
-            className="w-1/2 flex flex-row items-center justify-start flex-grow px-1 space-x-1 ring-0 outline-none text-sm text-neutral-400 transition-all duration-500 hover:text-white focus:text-white active:text-white"
+            className="w-1/2 flex flex-row items-center justify-start flex-grow px-1 space-x-1 ring-0 outline-none text-sm text-neutral-500 transition-all duration-500 hover:text-white focus:text-white active:text-white"
           >
             <span className="flex-shrink-0">&#x2190;</span>
             <span className="w-full flex-grow text-left truncate">
@@ -52,7 +54,7 @@ export const BlogLayout: FC<BlogLayoutProps> = (props) => {
         {next && (
           <Link
             href={next.url}
-            className="w-1/2 flex flex-row items-center justify-end flex-grow px-1 space-x-1 ring-0 outline-none text-sm text-neutral-400 transition-all duration-500 hover:text-white focus:text-white active:text-white"
+            className="w-1/2 flex flex-row items-center justify-end flex-grow px-1 space-x-1 ring-0 outline-none text-sm text-neutral-500 transition-all duration-500 hover:text-white focus:text-white active:text-white"
           >
             <span className="w-full flex-grow text-right truncate">
               {next.title}
@@ -70,7 +72,18 @@ export const BlogLayout: FC<BlogLayoutProps> = (props) => {
             {formatDistanceToNow(date, { addSuffix: true, locale })}
           </time>
         </section>
-        <p className="pt-3 text-justify whitespace-pre">{content}</p>
+        {tags.length > 0 && (
+          <section className="w-full space-x-2 text-center">
+            {tags.map((tag) => (
+              <span key={tag} className="italic text-sm text-neutral-500">
+                #{tag}
+              </span>
+            ))}
+          </section>
+        )}
+        <section className="text-justify pt-3">
+          <MDXRemote {...mdx} />
+        </section>
       </main>
       <footer className="w-full pt-2 text-center">
         <small className="text-sm text-neutral-500">
