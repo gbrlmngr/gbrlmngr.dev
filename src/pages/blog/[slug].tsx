@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { MDXRemoteSerializeResult } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
@@ -26,6 +27,13 @@ interface BlogPageProps {
 const BlogPage: NextPage<BlogPageProps> = ({ article }) => {
   const { frontmatter } = article ?? {};
   const { author = "", title = "", date = "", tags = [] } = frontmatter;
+  const [isRendered, setIsRendered] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIsRendered(true);
+  }, [setIsRendered]);
+
+  if (!isRendered) return null;
 
   return (
     <BlogArticleLayout
