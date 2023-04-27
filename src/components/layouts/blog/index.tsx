@@ -3,6 +3,7 @@ import { Unbounded, Inconsolata } from "next/font/google";
 import Link from "next/link";
 import { format, formatDistanceToNow, type Locale } from "date-fns";
 import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
+import { mdxComponents } from "./mdx-components";
 
 interface BlogLayoutProps {
   locale?: Locale;
@@ -18,7 +19,7 @@ interface BlogLayoutProps {
   author: string;
   date: Date;
   tags: string[];
-  mdx: MDXRemoteSerializeResult;
+  content: MDXRemoteSerializeResult;
 }
 
 const UnboundedFont = Unbounded({
@@ -33,11 +34,11 @@ const InconsolataFont = Inconsolata({
 });
 
 export const BlogLayout: FC<BlogLayoutProps> = (props) => {
-  const { locale, previous, next, title, author, date, tags, mdx } = props;
+  const { locale, previous, next, title, author, date, tags, content } = props;
 
   return (
     <article
-      className={`max-w-screen-lg flex flex-col items-center mx-auto px-12 py-24 sm:px-24 divide-y ${InconsolataFont.className}`}
+      className={`max-w-screen-lg flex flex-col items-center mx-auto px-12 py-24 sm:px-24 divide-y divide-dashed divide-neutral-600 ${InconsolataFont.className}`}
     >
       <header className="w-full flex flex-row items-center justify-between pb-2">
         {previous && (
@@ -63,9 +64,9 @@ export const BlogLayout: FC<BlogLayoutProps> = (props) => {
           </Link>
         )}
       </header>
-      <main className="w-full py-2 space-y-1 text-center">
+      <main className="w-full py-2 text-center">
         <h1 className={`text-2xl ${UnboundedFont.className}`}>{title}</h1>
-        <section className="w-full flex flex-row items-center justify-center space-x-2">
+        <section className="w-full space-x-2">
           <small className="text-sm">{author}</small>
           <small className="text-sm">@</small>
           <time dateTime={format(date, "yyyy-MM-dd")} className="text-sm">
@@ -82,7 +83,7 @@ export const BlogLayout: FC<BlogLayoutProps> = (props) => {
           </section>
         )}
         <section className="text-justify pt-3">
-          <MDXRemote {...mdx} />
+          <MDXRemote {...content} components={mdxComponents} />
         </section>
       </main>
       <footer className="w-full pt-2 text-center">
