@@ -11,7 +11,7 @@ import {
 } from "react-icons/io5";
 import * as mixpanel from "@/lib/mixpanel/events";
 
-interface HomeProps {}
+interface HomePageProps {}
 
 const UnboundedFont = Unbounded({
   weight: ["700"],
@@ -24,7 +24,7 @@ const InconsolataFont = Inconsolata({
   display: "swap",
 });
 
-const Home: NextPage = () => {
+const HomePage: NextPage<HomePageProps> = () => {
   const t = useTranslations("pages.home");
   const variants: Variants = {
     hidden: { opacity: 0, y: -15 },
@@ -51,7 +51,7 @@ const Home: NextPage = () => {
           transition={
             isMotionReduced
               ? { duration: 0 }
-              : { duration: 1.5, delay: 0.3, ease: "easeOut" }
+              : { duration: 0.8, delay: 0.3, ease: "easeOut" }
           }
         >
           <h1 className={`text-6xl font-bold ${UnboundedFont.className}`}>
@@ -115,7 +115,9 @@ const Home: NextPage = () => {
   );
 };
 
-export const getStaticProps: GetStaticProps<HomeProps> = async ({ locale }) => {
+export const getStaticProps: GetStaticProps<HomePageProps> = async ({
+  locale,
+}) => {
   return {
     props: {
       i18n: (await import(`../lib/locales/${locale ?? "en"}.json`)).default,
@@ -123,4 +125,4 @@ export const getStaticProps: GetStaticProps<HomeProps> = async ({ locale }) => {
   };
 };
 
-export default Home;
+export default HomePage;

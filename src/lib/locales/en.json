@@ -4,6 +4,13 @@
       "page-title": "gbrlmngr.dev | Home",
       "salutation": "Hello!",
       "role": "Full-Stack Software Engineer"
+    },
+    "blog": {
+      "page-title": "gbrlmngr.dev | Blog",
+      "breadcrumbs": {
+        "root": "gbrlmngr.dev",
+        "blog": "blog"
+      }
     }
   }
 }
