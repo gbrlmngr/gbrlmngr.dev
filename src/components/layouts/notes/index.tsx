@@ -8,7 +8,7 @@ import { useTranslations } from "next-intl";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { mdxComponents } from "./mdx-components";
 
-interface BlogArticleLayoutProps {
+interface NotesLayoutProps {
   locale?: Locale;
   previous?: {
     title: string;
@@ -36,9 +36,9 @@ const InconsolataFont = Inconsolata({
   display: "swap",
 });
 
-export const BlogArticleLayout: FC<BlogArticleLayoutProps> = (props) => {
+export const NotesLayout: FC<NotesLayoutProps> = (props) => {
   const { locale, previous, next, title, author, date, tags, content } = props;
-  const t = useTranslations("pages.blog");
+  const t = useTranslations("pages.notes");
   const pageTitle = `${t("page-title")}: ${title}`;
 
   const variants: Variants = {
@@ -76,10 +76,10 @@ export const BlogArticleLayout: FC<BlogArticleLayoutProps> = (props) => {
           </Link>
           <span>/</span>
           <Link
-            href="/blog"
+            href="/notes"
             className="transition-colors duration-500 hover:text-white focus:text-white active:text-white"
           >
-            {t("breadcrumbs.blog")}
+            {t("breadcrumbs.notes")}
           </Link>
         </header>
 

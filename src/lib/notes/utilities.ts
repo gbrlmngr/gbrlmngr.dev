@@ -1,22 +1,22 @@
 import { readdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
 
-export const getArticlesPaths = async (
+export const getNotesPaths = async (
   trimExtension: boolean = true
 ): Promise<string[]> => {
   try {
     return (
-      await readdir(join(process.cwd(), "src", "lib", "blog", "articles"))
+      await readdir(join(process.cwd(), "src", "lib", "notes", "markdown"))
     )?.map(trimMdxExtension);
   } catch {
     return [];
   }
 };
 
-export const getArticle = async (slug: string): Promise<string> => {
+export const getNote = async (slug: string): Promise<string> => {
   try {
     return await readFile(
-      join(process.cwd(), "src", "lib", "blog", "articles", `${slug}.mdx`),
+      join(process.cwd(), "src", "lib", "notes", "markdown", `${slug}.mdx`),
       "utf8"
     );
   } catch {

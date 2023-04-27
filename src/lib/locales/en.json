@@ -5,11 +5,11 @@
       "salutation": "Hello!",
       "role": "Full-Stack Software Engineer"
     },
-    "blog": {
-      "page-title": "gbrlmngr.dev | Blog",
+    "notes": {
+      "page-title": "gbrlmngr.dev | Notes",
       "breadcrumbs": {
         "root": "gbrlmngr.dev",
-        "blog": "blog"
+        "notes": "notes"
       }
     }
   }
