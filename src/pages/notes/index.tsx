@@ -6,6 +6,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { format } from "date-fns";
 import { NoteFrontmatter, getNotesMetadata } from "@/lib/notes/utilities";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 
 interface NotesPageProps {
   notes: (NoteFrontmatter & { slug: string })[];
@@ -39,10 +40,10 @@ const NotesPage: NextPage<NotesPageProps> = ({ notes }) => {
         <title>{t("page-title")}</title>
       </Head>
       <main
-        className={`max-w-screen-lg mx-auto flex flex-col items-center px-12 py-24 sm:px-24 ${InconsolataFont.className}`}
+        className={`max-w-screen-lg mx-auto flex flex-col items-center py-16 px-12 sm:px-24 ${InconsolataFont.className}`}
       >
         <motion.div
-          className="text-center"
+          className="w-full"
           variants={variants}
           initial={["blurred", "hidden"]}
           animate={["clear", "visible"]}
@@ -52,24 +53,42 @@ const NotesPage: NextPage<NotesPageProps> = ({ notes }) => {
               : { duration: 0.8, delay: 0.3, ease: "easeOut" }
           }
         >
-          <header className="">
-            <h1 className={`text-4xl font-bold ${UnboundedFont.className}`}>
+          <header className="w-full">
+            <Breadcrumbs
+              items={[
+                { label: t("breadcrumbs.root"), url: "/" },
+                {
+                  label: t("breadcrumbs.notes"),
+                  url: "/notes",
+                  isActive: true,
+                },
+              ]}
+            />
+            <h1
+              className={`text-center text-4xl font-bold ${UnboundedFont.className}`}
+            >
               {t("index")}
             </h1>
           </header>
 
-          <section className="pt-4">
+          <section className="pt-4 text-center">
             {notes.map((note) => {
               const { date, slug, title } = note;
 
               return (
-                <div key={slug} className="space-x-2">
-                  <small className="inline-block leading-8 h-8">
+                <div
+                  key={slug}
+                  className="flex flex-row items-center justify-center gap-2"
+                >
+                  <small
+                    className="min-w-[10ch] text-sm"
+                    title={format(new Date(date), "yyyy-MM-dd HH:mm")}
+                  >
                     {format(new Date(date), "yyyy-MM-dd")}
                   </small>
                   <Link
                     href={`/notes/${slug}`}
-                    className="inline-block leading-8 h-8 text-neutral-500 transition-colors duration-500 hover:text-white focus:text-white active:text-white"
+                    className="max-w-xs truncate text-neutral-500 transition-colors duration-500 hover:text-white focus:text-white active:text-white"
                   >
                     {title}
                   </Link>

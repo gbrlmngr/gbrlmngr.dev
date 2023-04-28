@@ -7,6 +7,7 @@ import Head from "next/head";
 import { useTranslations } from "next-intl";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { mdxComponents } from "./mdx-components";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 
 interface NotesLayoutProps {
   locale?: Locale;
@@ -18,6 +19,7 @@ interface NotesLayoutProps {
     title: string;
     url: string;
   };
+  slug: string;
   title: string;
   author: string;
   date: Date;
@@ -37,7 +39,8 @@ const InconsolataFont = Inconsolata({
 });
 
 export const NotesLayout: FC<NotesLayoutProps> = (props) => {
-  const { locale, previous, next, title, author, date, tags, content } = props;
+  const { locale, slug, previous, next, title, author, date, tags, content } =
+    props;
   const t = useTranslations("pages.notes");
   const pageTitle = `${t("page-title")}: ${title}`;
 
@@ -67,21 +70,13 @@ export const NotesLayout: FC<NotesLayoutProps> = (props) => {
             : { duration: 0.8, delay: 0.3, ease: "easeOut" }
         }
       >
-        <header className="w-full text-left space-x-2 mb-4 text-neutral-500">
-          <Link
-            href="/"
-            className="transition-colors duration-500 hover:text-white focus:text-white active:text-white"
-          >
-            {t("breadcrumbs.root")}
-          </Link>
-          <span>/</span>
-          <Link
-            href="/notes"
-            className="transition-colors duration-500 hover:text-white focus:text-white active:text-white"
-          >
-            {t("breadcrumbs.notes")}
-          </Link>
-        </header>
+        <Breadcrumbs
+          items={[
+            { label: t("breadcrumbs.root"), url: "/" },
+            { label: t("breadcrumbs.notes"), url: "/notes" },
+            { label: slug, url: `/notes/${slug}`, isActive: true },
+          ]}
+        />
 
         <article className="w-full divide-y divide-dashed divide-neutral-600">
           <header className="w-full flex flex-row items-center justify-between pb-2">
@@ -113,7 +108,11 @@ export const NotesLayout: FC<NotesLayoutProps> = (props) => {
             <section className="w-full space-x-2">
               <small className="text-sm">{author}</small>
               <small className="text-sm">@</small>
-              <time dateTime={format(date, "yyyy-MM-dd")} className="text-sm">
+              <time
+                title={format(date, "yyyy-MM-dd HH:mm")}
+                dateTime={format(date, "yyyy-MM-dd")}
+                className="text-sm"
+              >
                 {formatDistanceToNow(date, {
                   locale,
                   addSuffix: true,

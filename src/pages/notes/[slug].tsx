@@ -22,9 +22,10 @@ interface NoteFrontmatter {
 
 interface NotePageProps {
   note: MDXRemoteSerializeResult<unknown, Partial<NoteFrontmatter>>;
+  slug: string;
 }
 
-const NotePage: NextPage<NotePageProps> = ({ note }) => {
+const NotePage: NextPage<NotePageProps> = ({ note, slug }) => {
   const { frontmatter } = note ?? {};
   const { author = "", title = "", date = "", tags = [] } = frontmatter;
   const [isRendered, setIsRendered] = useState<boolean>(false);
@@ -37,6 +38,7 @@ const NotePage: NextPage<NotePageProps> = ({ note }) => {
 
   return (
     <NotesLayout
+      slug={slug}
       author={author}
       title={title}
       date={new Date(date)}
@@ -72,6 +74,7 @@ export const getStaticProps: GetStaticProps<NotePageProps> = async (
       note: JSON.parse(
         JSON.stringify(await serialize(note, { parseFrontmatter: true }))
       ),
+      slug,
     },
   };
 };
