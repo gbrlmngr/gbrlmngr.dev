@@ -1,8 +1,8 @@
 import { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
-import { useTranslations } from "next-intl";
 import { Unbounded, Inconsolata } from "next/font/google";
-import { Variants, motion, useReducedMotion } from "framer-motion";
+import { useTranslations } from "next-intl";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
 import {
   IoLogoLinkedin,
   IoLogoGithub,
@@ -41,7 +41,7 @@ const HomePage: NextPage<HomePageProps> = () => {
         <title>{t("page-title")}</title>
       </Head>
       <main
-        className={`flex flex-col items-center px-12 py-24 sm:px-24 ${InconsolataFont.className}`}
+        className={`max-w-screen-lg mx-auto flex flex-col items-center px-12 py-24 sm:px-24 ${InconsolataFont.className}`}
       >
         <motion.div
           className="text-center"

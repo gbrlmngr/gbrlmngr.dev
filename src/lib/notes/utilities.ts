@@ -1,26 +1,69 @@
-import { readdir, readFile } from "node:fs/promises";
+import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
+import { read, GrayMatterFile } from "gray-matter";
 
-export const getNotesPaths = async (
-  trimExtension: boolean = true
-): Promise<string[]> => {
+export interface NoteFrontmatter {
+  previous?: {
+    title: string;
+    url: string;
+  };
+  next?: {
+    title: string;
+    url: string;
+  };
+  title: string;
+  author: string;
+  date: string;
+  tags: string[];
+}
+
+export const getNotes = (shouldRemoveExtension: boolean = false): string[] => {
   try {
-    return (
-      await readdir(join(process.cwd(), "src", "lib", "notes", "markdown"))
-    )?.map(trimMdxExtension);
+    const files = readdirSync(
+      join(process.cwd(), "src", "lib", "notes", "markdown")
+    );
+
+    if (shouldRemoveExtension) {
+      return files.map(trimMdxExtension);
+    }
+
+    return files;
   } catch {
     return [];
   }
 };
 
-export const getNote = async (slug: string): Promise<string> => {
+export const getNote = (slug: string): string => {
   try {
-    return await readFile(
+    return readFileSync(
       join(process.cwd(), "src", "lib", "notes", "markdown", `${slug}.mdx`),
       "utf8"
     );
   } catch {
     return "";
+  }
+};
+
+export const getNoteMetadata = (filename: string) => {
+  try {
+    const metadata = read(
+      join(process.cwd(), "src", "lib", "notes", "markdown", filename)
+    ).data;
+
+    return {
+      ...metadata,
+      slug: trimMdxExtension(filename),
+    } as NoteFrontmatter & { slug: string };
+  } catch {
+    return {} as NoteFrontmatter & { slug: string };
+  }
+};
+
+export const getNotesMetadata = () => {
+  try {
+    return getNotes().map(getNoteMetadata);
+  } catch {
+    return [];
   }
 };
 

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { MDXRemoteSerializeResult } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
-import { getNote, getNotesPaths } from "@/lib/notes/utilities";
+import { getNote, getNotes } from "@/lib/notes/utilities";
 import { NotesLayout } from "@/components/layouts/notes";
 
 interface NoteFrontmatter {
@@ -20,11 +20,11 @@ interface NoteFrontmatter {
   tags: string[];
 }
 
-interface NotesPageProps {
+interface NotePageProps {
   note: MDXRemoteSerializeResult<unknown, Partial<NoteFrontmatter>>;
 }
 
-const NotesPage: NextPage<NotesPageProps> = ({ note }) => {
+const NotePage: NextPage<NotePageProps> = ({ note }) => {
   const { frontmatter } = note ?? {};
   const { author = "", title = "", date = "", tags = [] } = frontmatter;
   const [isRendered, setIsRendered] = useState<boolean>(false);
@@ -48,23 +48,23 @@ const NotesPage: NextPage<NotesPageProps> = ({ note }) => {
   );
 };
 
-export const getStaticPaths: GetStaticPaths = async (context) => {
+export const getStaticPaths: GetStaticPaths = async () => {
   return {
-    paths: (await getNotesPaths()).map((path) => ({
+    paths: getNotes(true).map((path) => ({
       params: { slug: path },
     })),
     fallback: false,
   };
 };
 
-export const getStaticProps: GetStaticProps<NotesPageProps> = async (
+export const getStaticProps: GetStaticProps<NotePageProps> = async (
   context
 ) => {
   const { params, locale } = context;
   const slug = Array.isArray(params?.slug)
     ? params!.slug[0]
     : params!.slug ?? "";
-  const note = await getNote(slug);
+  const note = getNote(slug);
 
   return {
     props: {
@@ -76,4 +76,4 @@ export const getStaticProps: GetStaticProps<NotesPageProps> = async (
   };
 };
 
-export default NotesPage;
+export default NotePage;
