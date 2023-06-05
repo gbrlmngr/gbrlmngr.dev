@@ -14,17 +14,17 @@ export const identify = (identity?: string) => {
 
 export const track = (
   eventName: string,
-  valueOrProperties: string | Record<string, string | null>
+  valueOrObject: string | Record<string, string | null>
 ) => {
-  if (typeof valueOrProperties === "string") {
+  if (typeof valueOrObject === "string") {
     return mixpanel.track(eventName, {
       Environment: process.env.NODE_ENV,
-      Value: valueOrProperties,
+      Value: valueOrObject,
     });
   }
 
   return mixpanel.track(eventName, {
     Environment: process.env.NODE_ENV,
-    ...valueOrProperties,
+    ...valueOrObject,
   });
 };

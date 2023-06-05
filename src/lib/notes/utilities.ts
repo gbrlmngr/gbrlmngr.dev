@@ -1,6 +1,6 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import { read, GrayMatterFile } from "gray-matter";
+import { read } from "gray-matter";
 
 export interface NoteFrontmatter {
   previous?: {
