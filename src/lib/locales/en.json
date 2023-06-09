@@ -1,17 +1,16 @@
 {
+  "common": {
+    "footer": "Made with ❤️ in 🇷🇴"
+  },
   "pages": {
     "home": {
       "page-title": "gbrlmngr.dev | Home",
-      "salutation": "Hello!",
       "role": "Full-Stack Software Engineer"
     },
-    "notes": {
-      "page-title": "gbrlmngr.dev | Notes",
-      "breadcrumbs": {
-        "root": "gbrlmngr.dev",
-        "notes": "notes"
-      },
-      "index": "Notes"
+    "experiments": {
+      "experiments": "experiments",
+      "page-title": "gbrlmngr.dev | Experiments",
+      "nothing-to-see": "There's currently nothing to see here..."
     }
   }
 }

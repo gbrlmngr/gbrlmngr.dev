@@ -1,18 +1,21 @@
 import { FC } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import * as mixpanel from "@/lib/mixpanel/events";
 
-interface BreadcrumbsProps {
+export interface IBreadcrumbsProps {
   items: {
     label: string;
     url: string;
-    isActive?: boolean;
   }[];
 }
 
-export const Breadcrumbs: FC<BreadcrumbsProps> = ({ items = [] }) => {
+export const Breadcrumbs: FC<IBreadcrumbsProps> = ({ items = [] }) => {
+  const { asPath } = useRouter();
+
   return (
-    <header className="w-full text-left space-x-2 mb-4 text-neutral-500">
-      {items.map(({ label, url, isActive }, index) => (
+    <nav className="w-full mb-4 sm:mb-6 text-left space-x-2 text-neutral-500">
+      {items.map(({ label, url }, index) => (
         <span
           key={`${url}_${label}`}
           className="inline-block max-w-xs truncate"
@@ -22,13 +25,19 @@ export const Breadcrumbs: FC<BreadcrumbsProps> = ({ items = [] }) => {
           <Link
             href={url}
             className={`transition-colors duration-500 ${
-              isActive ? "text-white" : ""
+              asPath === url ? "text-white" : ""
             } hover:text-white focus:text-white active:text-white`}
+            onClick={() => {
+              mixpanel.track(mixpanel.Events.Breadcrumb, {
+                "Current URL": asPath,
+                "Next URL": url,
+              });
+            }}
           >
             {label}
           </Link>
         </span>
       ))}
-    </header>
+    </nav>
   );
 };

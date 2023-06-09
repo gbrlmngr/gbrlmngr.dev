@@ -1,8 +1,6 @@
 import { GetStaticProps, NextPage } from "next";
-import Head from "next/head";
-import { Unbounded, Inconsolata } from "next/font/google";
+import { Unbounded } from "@/lib/fonts";
 import { useTranslations } from "next-intl";
-import { motion, useReducedMotion, type Variants } from "framer-motion";
 import {
   IoLogoLinkedin,
   IoLogoGithub,
@@ -10,112 +8,65 @@ import {
   IoMail,
 } from "react-icons/io5";
 import * as mixpanel from "@/lib/mixpanel/events";
+import { GenericLayout } from "@/components/layouts/generic";
 
-interface HomePageProps {}
+interface IHomePageProps {}
 
-const UnboundedFont = Unbounded({
-  weight: ["700"],
-  subsets: ["latin"],
-  display: "swap",
-});
-const InconsolataFont = Inconsolata({
-  weight: ["400", "600"],
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const HomePage: NextPage<HomePageProps> = () => {
+const HomePage: NextPage<IHomePageProps> = () => {
   const t = useTranslations("pages.home");
-  const variants: Variants = {
-    hidden: { opacity: 0, y: -15 },
-    visible: { opacity: 1, y: 0 },
-    blurred: { filter: "blur(10px)" },
-    clear: { filter: "blur(0)" },
-  };
-
-  const isMotionReduced = useReducedMotion();
 
   return (
-    <>
-      <Head>
-        <title>{t("page-title")}</title>
-      </Head>
-      <main
-        className={`max-w-screen-lg mx-auto flex flex-col items-center px-12 py-24 sm:px-24 ${InconsolataFont.className}`}
-      >
-        <motion.div
-          className="text-center"
-          variants={variants}
-          initial={["blurred", "hidden"]}
-          animate={["clear", "visible"]}
-          transition={
-            isMotionReduced
-              ? { duration: 0 }
-              : { duration: 0.8, delay: 0.3, ease: "easeOut" }
-          }
+    <GenericLayout title={t("page-title")}>
+      <h1 className={`text-2xl sm:text-3xl text-bold ${Unbounded.className}`}>
+        Gabriel Mangiurea
+      </h1>
+      <p className="text-xl text-neutral-400">{t("role")}</p>
+      <p className="mt-2 text-2xl text-center space-x-2">
+        <a
+          href="https://www.linkedin.com/in/gbrlmngr/"
+          className="social-icon"
+          onClick={() => {
+            mixpanel.track(mixpanel.Events.SocialIconInteraction, "linkedin");
+          }}
         >
-          <h1 className={`text-6xl font-bold ${UnboundedFont.className}`}>
-            {t("salutation")}
-          </h1>
-          <p className="mt-4 text-lg space-x-2">
-            <span className="text-bold">Gabriel Mangiurea</span>
-            <span className="text-neutral-500">&#x2022;</span>
-            <span className="text-neutral-500">{t("role")}</span>
-          </p>
-          <p className="mt-2 text-2xl text-center space-x-2">
-            <a
-              href="https://www.linkedin.com/in/gbrlmngr/"
-              className="social-icon"
-              onClick={() => {
-                mixpanel.track(
-                  mixpanel.Events.SocialIconInteraction,
-                  "LinkedIn"
-                );
-              }}
-            >
-              <IoLogoLinkedin className="inline-block" />
-            </a>
+          <IoLogoLinkedin className="inline-block" />
+        </a>
 
-            <a
-              href="https://github.com/gbrlmngr"
-              className="social-icon"
-              onClick={() => {
-                mixpanel.track(mixpanel.Events.SocialIconInteraction, "Github");
-              }}
-            >
-              <IoLogoGithub className="inline-block" />
-            </a>
+        <a
+          href="https://github.com/gbrlmngr"
+          className="social-icon"
+          onClick={() => {
+            mixpanel.track(mixpanel.Events.SocialIconInteraction, "github");
+          }}
+        >
+          <IoLogoGithub className="inline-block" />
+        </a>
 
-            <a
-              href="https://discord.com/users/667477657323307050"
-              className="social-icon"
-              onClick={() => {
-                mixpanel.track(
-                  mixpanel.Events.SocialIconInteraction,
-                  "Discord"
-                );
-              }}
-            >
-              <IoLogoDiscord className="inline-block" />
-            </a>
+        <a
+          href="https://discord.com/users/667477657323307050"
+          className="social-icon"
+          onClick={() => {
+            mixpanel.track(mixpanel.Events.SocialIconInteraction, "discord");
+          }}
+        >
+          <IoLogoDiscord className="inline-block" />
+        </a>
 
-            <a
-              href="mailto:hi@gbrlmngr.dev"
-              className="social-icon"
-              onClick={() => {
-                mixpanel.track(mixpanel.Events.SocialIconInteraction, "Email");
-              }}
-            >
-              <IoMail className="inline-block" />
-            </a>
-          </p>
-        </motion.div>
-      </main>
-    </>
+        <a
+          href="mailto:hi@gbrlmngr.dev"
+          className="social-icon"
+          onClick={() => {
+            mixpanel.track(mixpanel.Events.SocialIconInteraction, "email");
+          }}
+        >
+          <IoMail className="inline-block" />
+        </a>
+      </p>
+    </GenericLayout>
   );
 };
 
-export const getStaticProps: GetStaticProps<HomePageProps> = async ({
+export const getStaticProps: GetStaticProps<IHomePageProps> = async ({
   locale,
 }) => {
   return {

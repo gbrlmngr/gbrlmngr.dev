@@ -20,6 +20,6 @@ body {
 
 @layer components {
   .social-icon {
-    @apply inline-block transition-transform duration-300 outline-none ring-0 hover:-translate-y-1 hover:scale-110 focus:-translate-y-1 focus:scale-110 active:-translate-y-1 active:scale-110;
+    @apply inline-block motion-safe:transition-transform motion-safe:duration-300 outline-none ring-0 motion-safe:hover:-translate-y-1 motion-safe:hover:scale-110 motion-safe:focus:-translate-y-1 motion-safe:focus:scale-110 motion-safe:active:-translate-y-1 motion-safe:active:scale-110;
   }
 }
