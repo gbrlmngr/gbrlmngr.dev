@@ -1,7 +1,7 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import * as mixpanel from "@/lib/mixpanel/events";
+import { track, Events } from "@/lib/mixpanel/events";
 
 export interface IBreadcrumbsProps {
   items: {
@@ -28,9 +28,10 @@ export const Breadcrumbs: FC<IBreadcrumbsProps> = ({ items = [] }) => {
               asPath === url ? "text-white" : ""
             } hover:text-white focus:text-white active:text-white`}
             onClick={() => {
-              mixpanel.track(mixpanel.Events.Breadcrumb, {
-                "Current URL": asPath,
-                "Next URL": url,
+              if (!window) return;
+
+              track(Events.Breadcrumb, {
+                "Next URL": `${window.location.origin}${url}`,
               });
             }}
           >
