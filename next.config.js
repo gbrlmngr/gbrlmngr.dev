@@ -31,7 +31,7 @@ const secureHeaders = [
   },
   {
     key: "Content-Security-Policy",
-    value: "default-src 'self'; script-src 'self' 'unsafe-eval' https://va.vercel-scripts.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self'; connect-src 'self' https://vitals.vercel-insights.com https://api-js.mixpanel.com; object-src data:;",
+    value: "default-src 'self'; script-src 'self' 'unsafe-eval' https://va.vercel-scripts.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' https://media1.giphy.com; connect-src 'self' https://vitals.vercel-insights.com https://api-js.mixpanel.com; object-src data:;",
   },
 ];
 

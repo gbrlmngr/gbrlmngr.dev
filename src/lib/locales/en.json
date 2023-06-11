@@ -11,6 +11,13 @@
       "experiments": "experiments",
       "page-title": "gbrlmngr.dev | Experiments",
       "nothing-to-see": "There's currently nothing to see here..."
+    },
+    "experiment": {
+      "experiments": "experiments",
+      "page-title": "gbrlmngr.dev | Experiments: {experimentName}",
+      "meta": {
+        "summary": "Summary"
+      }
     }
   }
 }

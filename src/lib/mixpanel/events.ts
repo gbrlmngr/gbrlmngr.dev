@@ -9,6 +9,7 @@ if (process.env.NEXT_PUBLIC_MIXPANEL_TOKEN) {
 export enum Events {
   SocialIconInteraction = "social_icon_interaction",
   Breadcrumb = "breadcrumb",
+  ViewedExperiment = "viewed_experiment",
 }
 
 export const identify = (identity?: string) => {

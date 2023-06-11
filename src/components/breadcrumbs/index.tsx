@@ -19,7 +19,7 @@ export const Breadcrumbs: FC<IBreadcrumbsProps> = ({ items = [] }) => {
         <span
           key={`${url}_${label}`}
           className="inline-block max-w-xs truncate"
-          title="label"
+          title={label}
         >
           {index !== 0 && <span className="mr-2">/</span>}
           <Link
