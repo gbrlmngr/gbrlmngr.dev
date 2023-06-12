@@ -24,7 +24,7 @@ export const GenericLayout: FC<IGenericLayoutProps> = (props) => {
       )}
 
       <main
-        className={`max-w-screen-lg mx-auto flex flex-col items-center px-12 py-24 sm:px-24 ${Inconsolata.className}`}
+        className={`max-w-screen-lg mx-auto flex flex-col items-center px-12 py-16 sm:px-24 ${Inconsolata.className}`}
       >
         {breadcrumbs?.length && <Breadcrumbs items={breadcrumbs} />}
         {children}

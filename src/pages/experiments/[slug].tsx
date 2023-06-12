@@ -46,11 +46,25 @@ const ExperimentPage: FC<IExperimentPageProps> = (props) => {
         { label: meta.slug, url: `/experiments/${meta.slug}` },
       ]}
     >
-      <section className="w-full p-4 mb-2 sm:mb-4 grid gap-2 sm:gap-16 grid-cols-1 sm:grid-cols-2 text-sm border-l-4 border-l-white bg-neutral-950">
-        <p className="truncate">
+      <section className="w-full p-4 mb-2 sm:mb-4 grid gap-2 sm:gap-x-16 grid-cols-1 sm:grid-cols-2 border-l-4 border-l-white bg-neutral-950">
+        <p className="truncate sm:col-span-2">
           <span className="font-bold">{t("meta.summary")}:</span>{" "}
           <span title={mdxSource.frontmatter.summary as string}>
             {mdxSource.frontmatter.summary as string}
+          </span>
+        </p>
+
+        <p className="truncate">
+          <span className="font-bold">{t("meta.complexity")}:</span>{" "}
+          <span title={mdxSource.frontmatter.complexity as string}>
+            {mdxSource.frontmatter.complexity as string}
+          </span>
+        </p>
+
+        <p className="truncate">
+          <span className="font-bold">{t("meta.usefulness")}:</span>{" "}
+          <span title={mdxSource.frontmatter.usefulness as string}>
+            {mdxSource.frontmatter.usefulness as string}
           </span>
         </p>
       </section>

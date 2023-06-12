@@ -44,9 +44,7 @@ const ExperimentsPage: NextPage<IExperimentsPageProps> = ({ experiments }) => {
               <span className="text-neutral-500 text-sm">
                 #{String(index + 1).padStart(3, "0")}
               </span>
-              <span className="truncate group-hover:underline group-focus:underline group-active:underline">
-                {experiment.summary}
-              </span>
+              <span className="truncate link">{experiment.summary}</span>
             </Link>
           ))}
       </section>

@@ -24,7 +24,7 @@ export const Breadcrumbs: FC<IBreadcrumbsProps> = ({ items = [] }) => {
           {index !== 0 && <span className="mr-2">/</span>}
           <Link
             href={url}
-            className={`transition-colors duration-500 ${
+            className={`link ${
               asPath === url ? "text-white" : ""
             } hover:text-white focus:text-white active:text-white`}
             onClick={() => {

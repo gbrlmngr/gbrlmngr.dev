@@ -4,6 +4,7 @@
   },
   "pages": {
     "home": {
+      "experiments": "Experiments",
       "page-title": "gbrlmngr.dev | Home",
       "role": "Full-Stack Software Engineer"
     },
@@ -16,7 +17,9 @@
       "experiments": "experiments",
       "page-title": "gbrlmngr.dev | Experiments: {experimentName}",
       "meta": {
-        "summary": "Summary"
+        "summary": "Summary",
+        "complexity": "Complexity",
+        "usefulness": "Usefulness"
       }
     }
   }

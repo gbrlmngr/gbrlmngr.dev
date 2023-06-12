@@ -6,8 +6,11 @@
   --foreground-rgb: 255, 255, 255;
   --background-start-rgb: 0, 0, 0;
   --background-end-rgb: 0, 0, 0;
+  --selection-background: magenta;
+  --selection-color: white;
 }
 
+html,
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
@@ -18,8 +21,17 @@ body {
     rgb(var(--background-start-rgb));
 }
 
+body *::selection {
+  background: var(--selection-background);
+  color: var(--selection-color);
+}
+
 @layer components {
   .social-icon {
     @apply inline-block motion-safe:transition-transform motion-safe:duration-300 outline-none ring-0 motion-safe:hover:-translate-y-1 motion-safe:hover:scale-110 motion-safe:focus:-translate-y-1 motion-safe:focus:scale-110 motion-safe:active:-translate-y-1 motion-safe:active:scale-110;
+  }
+
+  .link {
+    @apply group-hover:underline group-focus:underline group-active:underline hover:underline focus:underline active:underline;
   }
 }
